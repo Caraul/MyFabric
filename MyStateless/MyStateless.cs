@@ -24,7 +24,28 @@ namespace MyStateless
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceInstanceListener> CreateServiceInstanceListeners()
         {
+            ServiceEventSource.Current.ServiceMessage(this, "CreateServiceInstanceListeners");
+
             return new ServiceInstanceListener[0];
+        }
+
+        protected override Task OnOpenAsync(CancellationToken cancellationToken)
+        {
+            ServiceEventSource.Current.ServiceMessage(this, "OnOpenAsync");
+
+            return Task.FromResult(0);
+        }
+
+        protected override Task OnCloseAsync(CancellationToken cancellationToken)
+        {
+            ServiceEventSource.Current.ServiceMessage(this, "OnCloseAsync");
+
+            return Task.FromResult(0);
+        }
+
+        protected override void OnAbort()
+        {
+            ServiceEventSource.Current.ServiceMessage(this, "OnAbort");
         }
 
         /// <summary>
@@ -33,18 +54,13 @@ namespace MyStateless
         /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {
-            // TODO: Replace the following sample code with your own logic 
-            //       or remove this RunAsync override if it's not needed in your service.
-
             long iterations = 0;
 
-            while (true)
+            while (!cancellationToken.IsCancellationRequested)
             {
-                cancellationToken.ThrowIfCancellationRequested();
-
                 ServiceEventSource.Current.ServiceMessage(this, "Working-{0}", ++iterations);
 
-                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+                await Task.Delay(TimeSpan.FromSeconds(10), cancellationToken).ContinueWith(_ => { }, TaskContinuationOptions.NotOnFaulted);
             }
         }
     }
