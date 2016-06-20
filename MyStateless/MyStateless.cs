@@ -5,18 +5,25 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
+using MyStateless.Interfaces;
 
 namespace MyStateless
 {
     /// <summary>
     /// An instance of this class is created for each service instance by the Service Fabric runtime.
     /// </summary>
-    internal sealed class MyStateless : StatelessService
+    internal sealed class MyStateless : StatelessService, IMyStateless
     {
         public MyStateless(StatelessServiceContext context)
             : base(context)
         { }
+
+        public Task<DateTimeOffset> Now()
+        {
+            return Task.FromResult(DateTimeOffset.UtcNow);
+        }
 
         /// <summary>
         /// Optional override to create listeners (e.g., TCP, HTTP) for this service replica to handle client or user requests.
@@ -26,7 +33,7 @@ namespace MyStateless
         {
             ServiceEventSource.Current.ServiceMessage(this, "CreateServiceInstanceListeners");
 
-            return new ServiceInstanceListener[0];
+            return new[] { new ServiceInstanceListener(this.CreateServiceRemotingListener) };
         }
 
         protected override Task OnOpenAsync(CancellationToken cancellationToken)
