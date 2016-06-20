@@ -22,6 +22,7 @@ namespace MyStateless
 
         public Task<DateTimeOffset> Now()
         {
+            ServiceEventSource.Current.ServiceMessage(this, "Now - " + Context.PartitionId + " - " + Context.InstanceId);
             return Task.FromResult(DateTimeOffset.UtcNow);
         }
 
