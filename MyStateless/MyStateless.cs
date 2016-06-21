@@ -62,13 +62,14 @@ namespace MyStateless
         /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {
+            var configurationPackage = Context.CodePackageActivationContext.GetConfigurationPackageObject("Config");
+            var frequencyInSeconds = int.Parse(configurationPackage.Settings.Sections["MyConfigSection"].Parameters["MyFrequency"].Value);
             long iterations = 0;
-
             while (!cancellationToken.IsCancellationRequested)
             {
                 ServiceEventSource.Current.ServiceMessage(this, "Working-{0}", ++iterations);
 
-                await Task.Delay(TimeSpan.FromSeconds(10), cancellationToken).ContinueWith(_ => { }, TaskContinuationOptions.NotOnFaulted);
+                await Task.Delay(TimeSpan.FromSeconds(frequencyInSeconds), cancellationToken).ContinueWith(_ => { }, TaskContinuationOptions.NotOnFaulted);
             }
         }
     }
