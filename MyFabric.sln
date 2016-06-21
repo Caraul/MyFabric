@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyStateless.Interfaces", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyStatelessClient", "MyStatelessClient\MyStatelessClient.csproj", "{406CEAAC-C4B4-4271-A710-40624CB20D62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyWebApi", "MyWebApi\MyWebApi.csproj", "{83B5ACD6-E32B-4DA5-8931-2E4544073F8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,12 @@ Global
 		{406CEAAC-C4B4-4271-A710-40624CB20D62}.Release|Any CPU.Build.0 = Release|Any CPU
 		{406CEAAC-C4B4-4271-A710-40624CB20D62}.Release|x64.ActiveCfg = Release|Any CPU
 		{406CEAAC-C4B4-4271-A710-40624CB20D62}.Release|x64.Build.0 = Release|Any CPU
+		{83B5ACD6-E32B-4DA5-8931-2E4544073F8B}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{83B5ACD6-E32B-4DA5-8931-2E4544073F8B}.Debug|x64.ActiveCfg = Debug|x64
+		{83B5ACD6-E32B-4DA5-8931-2E4544073F8B}.Debug|x64.Build.0 = Debug|x64
+		{83B5ACD6-E32B-4DA5-8931-2E4544073F8B}.Release|Any CPU.ActiveCfg = Release|x64
+		{83B5ACD6-E32B-4DA5-8931-2E4544073F8B}.Release|x64.ActiveCfg = Release|x64
+		{83B5ACD6-E32B-4DA5-8931-2E4544073F8B}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
